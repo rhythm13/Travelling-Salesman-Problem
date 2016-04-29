@@ -18,11 +18,13 @@ using namespace std;
 vector<vector<int> > map;
 
 vector<bool> used;
-vector<char> name;
+vector<int> name;
 string s;
 
 // total number of node
 int n;
+int min=32767;
+string minrout="";
 
 
 void input()
@@ -34,7 +36,8 @@ void input()
 	{
 		map.push_back(vector<int>());
 		used.push_back(false);
-		name.push_back(65 + i);
+//		name.push_back(65 + i);   // Node name as A-Z
+		name.push_back(49 + i);   // Node name as 1-.....
 		for (int j = 0; j < n; j++)
 		{
 			inf >> temp;
@@ -45,7 +48,13 @@ void input()
 
 void output(string rout,int weight){
 	//list all routine with weight;
-	cout << rout << ' ' << weight<<endl;
+	//cout << rout << ' ' << weight<<endl;
+
+	if (weight < min)
+	{
+		min = weight;
+		minrout = rout;
+	}
 }
 
 void tspbf(int sour, int des,int count,int weight, string rout)
@@ -87,6 +96,6 @@ int main() {
 				tspbf(i, j, 0, 0, s);
 			}
 	}
-
+	cout << minrout << ' ' << min << endl;
 	return 0;
 }
