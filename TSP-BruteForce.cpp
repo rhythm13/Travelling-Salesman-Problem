@@ -23,14 +23,15 @@ string s;
 
 // total number of node
 int n;
-int min=32767;
-string minrout="";
+int start,mstart;
+int mmm=2147483647; // set min as biggest <int>
+string mmmrout="";
 
 
 void input()
 {
 	int temp;
-	ifstream inf("TSP.txt");
+	ifstream inf("TSP9.txt");
 	inf >> n;
 	for (int i = 0; i < n; i++)
 	{
@@ -44,16 +45,18 @@ void input()
 			map[i].push_back(temp);
 		}
 	}
+	inf.close();
 }
 
-void output(string rout,int weight){
+void output(string rout,int weight,int last){
 	//list all routine with weight;
-	//cout << rout << ' ' << weight<<endl;
-
-	if (weight < min)
+	cout << rout <<start+1<< ' ' << weight<<endl;
+	weight += map[last][start];
+	if (weight <= mmm)
 	{
-		min = weight;
-		minrout = rout;
+		mmm = weight;
+		mmmrout = rout;
+		mstart = start;
 	}
 }
 
@@ -64,12 +67,16 @@ void tspbf(int sour, int des,int count,int weight, string rout)
 	weight += map[sour][des];
 	rout += name[des];
 	if (count == n-1) 
-	{ output(rout,weight); return; }
+	{ output(rout,weight,des); return; }
 	for (int i = 0; i < n; i++)
 	{
 		if (used[i] == false && map[des][i]>0)
+		{
 			tspbf(des, i, count, weight, rout);
+			used[i] = false;
+		}
 	}
+	used[des] = false;
 }
 
 void reset(int sour)
@@ -90,12 +97,15 @@ int main() {
 		{		
 			if (map[i][j]>0)
 			{
+				start = i;
 				//reset the routine as empty and all note not used. except i.
 				reset(i);
 				s += name[i];
 				tspbf(i, j, 0, 0, s);
 			}
 	}
-	cout << minrout << ' ' << min << endl;
+	cout << mmmrout <<mstart<< ' ' << mmm << endl;
+
+//	cout << map[0][4] + map[4][2] + map[2][1] + map[1][8] + map[8][6] + map[6][3] + map[3][5] + map[5][7];
 	return 0;
 }
