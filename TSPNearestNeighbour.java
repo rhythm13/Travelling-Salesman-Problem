@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
@@ -6,6 +8,7 @@ public class TSPNearestNeighbour
 {
     private int numberOfNodes;
     private Stack<Integer> stack;
+    private static int distance;
  
     public TSPNearestNeighbour()
     {
@@ -21,7 +24,7 @@ public class TSPNearestNeighbour
         int element, dst = 0, i;
         int min = Integer.MAX_VALUE;
         boolean minFlag = false;
-        System.out.print(1 + "\t");
+        System.out.print(1 + " ");
  
         while (!stack.isEmpty())
         {
@@ -43,9 +46,10 @@ public class TSPNearestNeighbour
             }
             if (minFlag)
             {
+            	distance += adjacencyMatrix[element][dst];
                 visited[dst] = 1;
                 stack.push(dst);
-                System.out.print(dst + "\t");
+                System.out.print(dst + " ");
                 minFlag = false;
                 continue;
             }
@@ -53,17 +57,15 @@ public class TSPNearestNeighbour
         }
     }
  
-    public static void main(String... arg)
+    public static void main(String... arg) throws FileNotFoundException
     {
         int number_of_nodes;
         Scanner scanner = null;
         try
         {
-            System.out.println("Enter the number of nodes in the graph");
-            scanner = new Scanner(System.in);
+            scanner = new Scanner(new FileReader("TSP.txt"));
             number_of_nodes = scanner.nextInt();
             int adjacency_matrix[][] = new int[number_of_nodes + 1][number_of_nodes + 1];
-            System.out.println("Enter the adjacency matrix");
             for (int i = 1; i <= number_of_nodes; i++)
             {
                 for (int j = 1; j <= number_of_nodes; j++)
@@ -84,6 +86,7 @@ public class TSPNearestNeighbour
             System.out.println("the citys are visited as follows");
             TSPNearestNeighbour tspNearestNeighbour = new TSPNearestNeighbour();
             tspNearestNeighbour.tsp(adjacency_matrix);
+            System.out.println(distance);
         } catch (InputMismatchException inputMismatch)
          {
              System.out.println("Wrong Input format");
