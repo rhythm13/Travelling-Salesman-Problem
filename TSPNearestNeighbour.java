@@ -56,8 +56,9 @@ public class TSPNearestNeighbour
         }
     }
  
-    public static void main(String... arg) throws FileNotFoundException
-    {
+    public static void main(String[] arg) throws FileNotFoundException
+    {	
+    	long startMili=System.currentTimeMillis();
         int number_of_nodes;
         Scanner scanner = new Scanner(new FileReader("TSP.txt"));
         number_of_nodes = scanner.nextInt();
@@ -82,7 +83,10 @@ public class TSPNearestNeighbour
         System.out.println("the citys are visited as follows");
         TSPNearestNeighbour tspNearestNeighbour = new TSPNearestNeighbour();
         tspNearestNeighbour.tsp(adjacency_matrix);
-        System.out.println(distance);
+        System.out.println();
+        long endMili=System.currentTimeMillis();
+        System.out.println("diatance: " + distance);
+        System.out.println("run time: " + (endMili - startMili) + "ms");
         scanner.close();
     }
 }
