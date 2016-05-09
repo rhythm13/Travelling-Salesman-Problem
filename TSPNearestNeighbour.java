@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
  
@@ -60,20 +59,17 @@ public class TSPNearestNeighbour
     public static void main(String... arg) throws FileNotFoundException
     {
         int number_of_nodes;
-        Scanner scanner = null;
-        try
-        {
-            scanner = new Scanner(new FileReader("TSP.txt"));
-            number_of_nodes = scanner.nextInt();
-            int adjacency_matrix[][] = new int[number_of_nodes + 1][number_of_nodes + 1];
-            for (int i = 1; i <= number_of_nodes; i++)
-            {
+        Scanner scanner = new Scanner(new FileReader("TSP.txt"));
+        number_of_nodes = scanner.nextInt();
+        int adjacency_matrix[][] = new int[number_of_nodes + 1][number_of_nodes + 1];
+        for (int i = 1; i <= number_of_nodes; i++)
+        	{
                 for (int j = 1; j <= number_of_nodes; j++)
                 {
                     adjacency_matrix[i][j] = scanner.nextInt();
                 }
             }
-            for (int i = 1; i <= number_of_nodes; i++)
+        for (int i = 1; i <= number_of_nodes; i++)
             {
                 for (int j = 1; j <= number_of_nodes; j++)
                 {
@@ -83,14 +79,10 @@ public class TSPNearestNeighbour
                     }
                 }
             }
-            System.out.println("the citys are visited as follows");
-            TSPNearestNeighbour tspNearestNeighbour = new TSPNearestNeighbour();
-            tspNearestNeighbour.tsp(adjacency_matrix);
-            System.out.println(distance);
-        } catch (InputMismatchException inputMismatch)
-         {
-             System.out.println("Wrong Input format");
-         }
+        System.out.println("the citys are visited as follows");
+        TSPNearestNeighbour tspNearestNeighbour = new TSPNearestNeighbour();
+        tspNearestNeighbour.tsp(adjacency_matrix);
+        System.out.println(distance);
         scanner.close();
     }
 }
