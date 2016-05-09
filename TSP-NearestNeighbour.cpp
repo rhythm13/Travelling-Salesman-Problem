@@ -7,8 +7,8 @@
 using namespace std;
 vector<vector<int> > map;
 int distance1;
-int numberOfNodes;
 stack<int> stk;
+int numberOfNodes;
 
 vector<bool> used;
 vector<int> name;
@@ -24,22 +24,25 @@ void input()
 	{
 		map.push_back(vector<int>());
 		used.push_back(false);
-		name.push_back(49 + i); 
+		name.push_back(49 + i);
 		for (int j = 0; j < n; j++)
 		{
 			inf >> temp;
 			map[i].push_back(temp);
 		}
 	}
+	inf.close();
 }
 
 void tsp(vector<vector<int> > map) {
-	numberOfNodes = n;
-	vector<int> visited;
+	numberOfNodes = n - 1;
+	vector<int> visited(numberOfNodes + 1, 0);
 	visited[1] = 1;
 	stk.push(1);
-	int element, dst = 0, i;
-	int min = 32767;
+	int element = 0;
+	int dst;
+	int i;
+	int min = 2147483647;
 	bool minFlag = false;
 	cout << 1 + " ";
 
@@ -47,8 +50,8 @@ void tsp(vector<vector<int> > map) {
 	{
 		element = stk.top();
 		i = 1;
-		min = 32767;
-		while (i <= numberOfNodes)
+		min = 2147483647;
+		while (i <= n-1)
 		{
 			if (map[element][i] > 1 && visited[i] == 0)
 			{
