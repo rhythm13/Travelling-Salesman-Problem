@@ -10,6 +10,7 @@ Date:		April 8th.
 #include<vector>
 #include<fstream>
 #include<string>
+#include<time.h>
 
 using namespace std;
 
@@ -50,9 +51,9 @@ void input()
 
 void output(string rout,int weight,int last){
 	//list all routine with weight;
-	cout << rout <<start+1<< ' ' << weight<<endl;
+	//cout << rout <<start+1<< ' ' << weight<<endl;
 	weight += map[last][start];
-	if (weight <= mmm)
+	if (weight < mmm)
 	{
 		mmm = weight;
 		mmmrout = rout;
@@ -91,7 +92,13 @@ void reset(int sour)
 
 
 int main() {
+
+	clock_t startt, finish;
+	double totaltime;
+	srand(time(NULL));
+
 	input();
+	startt = clock();
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n; j++)
 		{		
@@ -104,8 +111,10 @@ int main() {
 				tspbf(i, j, 0, 0, s);
 			}
 	}
-	cout << mmmrout <<mstart<< ' ' << mmm << endl;
+	cout << mmmrout <<mstart+1<< ' ' << mmm << endl;
+	finish = clock();
+	totaltime = ((double)(finish - startt) / CLOCKS_PER_SEC);
+	cout << endl << "  Running Time:" << totaltime << " seconds." << endl;
 
-//	cout << map[0][4] + map[4][2] + map[2][1] + map[1][8] + map[8][6] + map[6][3] + map[3][5] + map[5][7];
 	return 0;
 }
