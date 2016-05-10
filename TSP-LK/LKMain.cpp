@@ -16,7 +16,7 @@ int main() {
 	double totaltime;
 	srand(time(NULL));
 
-	ifstream inf("TSP9.txt");
+	ifstream inf("TSP300.txt");
 	inf >> n;
 	for (int i = 0; i < n; i++)
 	{
@@ -27,8 +27,7 @@ int main() {
 			inf >> temp;
 			map[i].push_back(temp);
 		}
-		cin >> temp;
-		tt.push_back(temp-1);
+
 	}
 	inf.close();
 
@@ -37,21 +36,28 @@ int main() {
 	// initialize tour
 	tour = vector<int>(n, 0);
 
-	// Default algo: Greedy 2-Opt
+	// use the result of Greedy algo. as input
 
+	ifstream readTour("tour300.txt");
+	for (int i = 0; i < n; i++)
+	{
+			readTour >> temp;
+			tt.push_back(temp-1);
+	}
+	readTour.close();
 	// base on the routine we read in tt[], build tour[]
 	for (int i = 0; i < n-1; i++) {
 		tour[tt[i]] = tt[i+1];
 	}
 
+/*
+	// if there is no result to be improved, use 'random' one
 
-	// For 2-Opt, use this code to initial tour[];
-	# if 0
 	// initial 'random' tour
 	for (int i = 0; i < n; i++) {
 		tour[i] = (i + 1) % n;
 	}
-	#endif
+*/
 
 
 	LKMatrix mat(map, id,tour);
@@ -63,15 +69,8 @@ int main() {
 	cout << mat.getCurrentTourDistance() << endl;
 	mat.printTourIds();
 
-	totaltime = ((double)(finish - start) / CLOCKS_PER_SEC);
-	cout << endl << "  Running Time:" << totaltime << " seconds." << endl;
+	totaltime = ((double)(finish - start) / CLOCKS_PER_SEC*1000.0);
+	cout << endl << "  Running Time:" << totaltime << " milliseconds." << endl;
 
-/*
-	// check specific routine weight
-	cout << map[0][4] + map[4][2] + map[2][1] + map[1][8]
-		+ map[8][6] + map[6][3] + map[3][5] + map[5][7]+map[7][0] << endl;
-	cout << map[1][7] + map[7][8] + map[8][6] + map[6][3]
-		+ map[3][5] + map[5][2] + map[2][0] + map[0][6] +map[6][1]<< endl;
-*/
 	return 0;
 }
