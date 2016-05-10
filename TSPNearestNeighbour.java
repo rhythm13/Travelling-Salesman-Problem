@@ -8,6 +8,7 @@ public class TSPNearestNeighbour
     private int numberOfNodes;
     private Stack<Integer> stack;
     private static int distance;
+    private static int rtn;
  
     public TSPNearestNeighbour()
     {
@@ -52,6 +53,7 @@ public class TSPNearestNeighbour
                 minFlag = false;
                 continue;
             }
+            rtn = dst;
             stack.pop();
         }
     }
@@ -85,7 +87,8 @@ public class TSPNearestNeighbour
         tspNearestNeighbour.tsp(adjacency_matrix);
         System.out.println();
         long endMili=System.currentTimeMillis();
-        System.out.println("diatance: " + distance);
+        distance = distance + adjacency_matrix[1][rtn];
+        System.out.println("distance: " + distance);
         System.out.println("run time: " + (endMili - startMili) + "ms");
         scanner.close();
     }
