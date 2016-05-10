@@ -1,6 +1,6 @@
 
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include<iostream>
 #include <stdlib.h>
 #include<vector>
@@ -25,7 +25,7 @@ int main()
 			}
 			else
 			{
-				dist[i][j] = rand() %200 + 100;
+				dist[i][j] = rand() %450 + 50;
 				dist[j][i] = dist[i][j];
 			}
 		}
